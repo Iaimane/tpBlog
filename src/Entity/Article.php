@@ -50,6 +50,11 @@ class Article
         $this->comments = new ArrayCollection();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
 
 
     public function getTitle(): ?string
@@ -128,6 +133,11 @@ class Article
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
 }
