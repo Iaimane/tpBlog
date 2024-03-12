@@ -39,21 +39,6 @@ class ArticleRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Article[] Returns an array of Article objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('a')
-//            ->andWhere('a.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('a.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
 //    public function findOneBySomeField($value): ?Article
 //    {
 //        return $this->createQueryBuilder('a')
@@ -63,4 +48,17 @@ class ArticleRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+   /**
+    * @return Article[] Returns an array of Article objects
+    */
+   public function findBySearch(string $text): array
+   {
+       return $this->createQueryBuilder('a')
+           ->andWhere('a.content LIKE :val') //du sql LIKE permet de chercher des choses qui sont similaires
+           ->setParameter('val', "%$text%") //chercher une valeur de texte floue, on met des % pour dire que avant et après le texte on peut avoir n'importe quel caractère
+           ->getQuery()
+           ->getResult()
+       ;
+   }
 }
